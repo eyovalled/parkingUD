@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdministrativoCreateDlg" widgetVar="AdministrativoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAdministrativoTitle}">
+            <h:form id="AdministrativoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{administrativoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAdministrativoLabel_idAdministrativo}" for="idAdministrativo" />
+                        <p:inputText id="idAdministrativo" value="#{administrativoController.selected.idAdministrativo}" title="#{bundle.CreateAdministrativoTitle_idAdministrativo}" required="true" requiredMessage="#{bundle.CreateAdministrativoRequiredMessage_idAdministrativo}"/>
+                        <p:outputLabel value="#{bundle.CreateAdministrativoLabel_area}" for="area" />
+                        <p:inputText id="area" value="#{administrativoController.selected.area}" title="#{bundle.CreateAdministrativoTitle_area}" />
+                        <p:outputLabel value="#{bundle.CreateAdministrativoLabel_oficina}" for="oficina" />
+                        <p:inputText id="oficina" value="#{administrativoController.selected.oficina}" title="#{bundle.CreateAdministrativoTitle_oficina}" />
+                        <p:outputLabel value="#{bundle.CreateAdministrativoLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{administrativoController.selected.cargo}" title="#{bundle.CreateAdministrativoTitle_cargo}" />
+                        <p:outputLabel value="#{bundle.CreateAdministrativoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{administrativoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditAdministrativoRequiredMessage_idUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{administrativoController.create}" value="#{bundle.Save}" update="display,:AdministrativoListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdministrativoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdministrativoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

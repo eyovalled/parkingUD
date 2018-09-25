@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OperarioEditDlg" widgetVar="OperarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOperarioTitle}">
+            <h:form id="OperarioEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{operarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditOperarioLabel_idOperario}" for="idOperario" />
+                        <p:inputText id="idOperario" value="#{operarioController.selected.idOperario}" title="#{bundle.EditOperarioTitle_idOperario}" required="true" requiredMessage="#{bundle.EditOperarioRequiredMessage_idOperario}"/>
+                        <p:outputLabel value="#{bundle.EditOperarioLabel_idPersona}" for="idPersona" />
+                        <p:selectOneMenu id="idPersona" value="#{operarioController.selected.idPersona}" required="true" requiredMessage="#{bundle.EditOperarioRequiredMessage_idPersona}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personaController.itemsAvailableSelectOne}"
+                                           var="idPersonaItem"
+                                           itemValue="#{idPersonaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{operarioController.update}" value="#{bundle.Save}" update="display,:OperarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OperarioEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OperarioEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

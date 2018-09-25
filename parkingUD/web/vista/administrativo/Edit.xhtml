@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdministrativoEditDlg" widgetVar="AdministrativoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAdministrativoTitle}">
+            <h:form id="AdministrativoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{administrativoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAdministrativoLabel_idAdministrativo}" for="idAdministrativo" />
+                        <p:inputText id="idAdministrativo" value="#{administrativoController.selected.idAdministrativo}" title="#{bundle.EditAdministrativoTitle_idAdministrativo}" required="true" requiredMessage="#{bundle.EditAdministrativoRequiredMessage_idAdministrativo}"/>
+                        <p:outputLabel value="#{bundle.EditAdministrativoLabel_area}" for="area" />
+                        <p:inputText id="area" value="#{administrativoController.selected.area}" title="#{bundle.EditAdministrativoTitle_area}" />
+                        <p:outputLabel value="#{bundle.EditAdministrativoLabel_oficina}" for="oficina" />
+                        <p:inputText id="oficina" value="#{administrativoController.selected.oficina}" title="#{bundle.EditAdministrativoTitle_oficina}" />
+                        <p:outputLabel value="#{bundle.EditAdministrativoLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{administrativoController.selected.cargo}" title="#{bundle.EditAdministrativoTitle_cargo}" />
+                        <p:outputLabel value="#{bundle.EditAdministrativoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{administrativoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditAdministrativoRequiredMessage_idUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{administrativoController.update}" value="#{bundle.Save}" update="display,:AdministrativoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AdministrativoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdministrativoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdministrativoViewDlg" widgetVar="AdministrativoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAdministrativoTitle}">
+            <h:form id="AdministrativoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{administrativoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAdministrativoLabel_idAdministrativo}"/>
+                        <h:outputText value="#{administrativoController.selected.idAdministrativo}" title="#{bundle.ViewAdministrativoTitle_idAdministrativo}"/>
+                        <h:outputText value="#{bundle.ViewAdministrativoLabel_area}"/>
+                        <h:outputText value="#{administrativoController.selected.area}" title="#{bundle.ViewAdministrativoTitle_area}"/>
+                        <h:outputText value="#{bundle.ViewAdministrativoLabel_oficina}"/>
+                        <h:outputText value="#{administrativoController.selected.oficina}" title="#{bundle.ViewAdministrativoTitle_oficina}"/>
+                        <h:outputText value="#{bundle.ViewAdministrativoLabel_cargo}"/>
+                        <h:outputText value="#{administrativoController.selected.cargo}" title="#{bundle.ViewAdministrativoTitle_cargo}"/>
+                        <h:outputText value="#{bundle.ViewAdministrativoLabel_idUsuario}"/>
+                        <h:outputText value="#{administrativoController.selected.idUsuario}" title="#{bundle.ViewAdministrativoTitle_idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AdministrativoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

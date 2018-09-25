@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentoEditDlg" widgetVar="DocumentoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDocumentoTitle}">
+            <h:form id="DocumentoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_idDocumento}" for="idDocumento" />
+                        <p:inputText id="idDocumento" value="#{documentoController.selected.idDocumento}" title="#{bundle.EditDocumentoTitle_idDocumento}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_idDocumento}"/>
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_rutaDocumento}" for="rutaDocumento" />
+                        <p:inputText id="rutaDocumento" value="#{documentoController.selected.rutaDocumento}" title="#{bundle.EditDocumentoTitle_rutaDocumento}" />
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{documentoController.selected.estado}" title="#{bundle.EditDocumentoTitle_estado}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_estado}"/>
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_observacion}" for="observacion" />
+                        <p:inputText id="observacion" value="#{documentoController.selected.observacion}" title="#{bundle.EditDocumentoTitle_observacion}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_observacion}"/>
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{documentoController.selected.fecha}" title="#{bundle.EditDocumentoTitle_fecha}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_operarioIdOperario}" for="operarioIdOperario" />
+                        <p:selectOneMenu id="operarioIdOperario" value="#{documentoController.selected.operarioIdOperario}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_operarioIdOperario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{operarioController.itemsAvailableSelectOne}"
+                                           var="operarioIdOperarioItem"
+                                           itemValue="#{operarioIdOperarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_idTipoDocumento}" for="idTipoDocumento" />
+                        <p:selectOneMenu id="idTipoDocumento" value="#{documentoController.selected.idTipoDocumento}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_idTipoDocumento}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoDocumentoController.itemsAvailableSelectOne}"
+                                           var="idTipoDocumentoItem"
+                                           itemValue="#{idTipoDocumentoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDocumentoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{documentoController.selected.idUsuario}" required="true" requiredMessage="#{bundle.EditDocumentoRequiredMessage_idUsuario}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentoController.update}" value="#{bundle.Save}" update="display,:DocumentoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DocumentoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DocumentoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
